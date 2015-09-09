@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\SubmissionRepository;
 
 use App\Submission;
+use App\Http\Requests\SubmissionRequest;
 
 class SubmissionController extends Controller
 {
@@ -37,7 +38,7 @@ class SubmissionController extends Controller
      */
     public function postCreate(SubmissionRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     public function getSubmissions()

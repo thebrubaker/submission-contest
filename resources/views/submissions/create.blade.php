@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="title">New Submission</div>
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     @if(count($errors) > 0)
         <div class="alert alert-danger">
             <strong>There were some errors with your submission:</strong>
@@ -17,7 +17,7 @@
     {!! csrf_field() !!}
     <div class="form-group">
         <label for="image">Image</label>
-        <input type="file" id="image" name="image" value="{{ old('image') }}" class="form-control">
+        <input type="file" id="image" name="image" class="form-control">
     </div>
     <div class="form-group">
         <label for="caption" class="sr-only">Caption</label>

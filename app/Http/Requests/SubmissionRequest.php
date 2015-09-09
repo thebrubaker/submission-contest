@@ -13,7 +13,7 @@ class SubmissionRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class SubmissionRequest extends Request
     public function rules()
     {
         return [
-            //
+            'image' => 'required|mimes:jpeg,png',
+            'caption' => 'required',
+            'location' => 'required'
         ];
     }
 }

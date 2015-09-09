@@ -50,6 +50,7 @@ class SubmissionRepositoryContract implements SubmissionRepository {
 
 	public function create(User $user, array $attributes) {
 		$submission = $this->submission->newInstance($attributes);
+		dd($submission);
 		return $submission->user()->save($user);
 	}
 

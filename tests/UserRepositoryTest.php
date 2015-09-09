@@ -23,12 +23,26 @@ class UserRepositoryTest extends TestCase
      */
     public function test_create_user()
     {
-        $password = bcrypt('rescue');
+        $password = bcrypt('test');
         $attributes = [
             'email' => 'pk.joel@gmail.com',
             'password' => $password
         ];
         $user = $this->repo->create($attributes);
-        dd($user);
+        $user2 = User::where('id', $user->id)->first();
+        $this->assertEquals($user->email, $user2->email);
     }
+
+    public function test_find_by_email()
+    {
+        $password = bcrypt('test');
+        $attributes = [
+            'email' => 'pk.joel@gmail.com',
+            'password' => $password
+        ];
+        $user = $this->repo->create($attributes);
+        $user2 = $this->repo->findByEmail($user->email);
+        $this->assertEquals($user->id, $user2->id);
+    }
+
 }

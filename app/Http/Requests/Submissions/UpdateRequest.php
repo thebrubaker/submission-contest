@@ -27,5 +27,6 @@ class UpdateRequest extends Request
             'caption' => 'required',
             'location' => 'required',
         ];     
+
     }
 }

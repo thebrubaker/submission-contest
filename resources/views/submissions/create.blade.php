@@ -19,7 +19,7 @@
     {!! csrf_field() !!}
     <div class="form-group">
         <label for="image">Image</label>
-        <input type="file" id="image" name="image" value="{{ old('image') }}" class="form-control">
+        <input type="file" id="image" name="image" class="form-control">
     </div>
     <div class="form-group">
         <label for="caption" class="sr-only">Caption</label>

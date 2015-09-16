@@ -4,7 +4,9 @@ namespace App\Repositories\Eloquent;
 
 use App\User;
 use App\Submission;
+use Intervention\Image\Image;
 use App\Repositories\SubmissionRepository;
+use App\Utilities\ImageUtility;
 
 class SubmissionRepositoryContract implements SubmissionRepository {
 
@@ -48,9 +50,13 @@ class SubmissionRepositoryContract implements SubmissionRepository {
 
 	}
 
-	public function create(User $user, array $attributes) {
+	public function create(User $user, array $attributes, Image $image) {
+		$image_path = ImageUtility::create($image);
+		$thumbnail_path = ImageUtility::thumbnail($image);
 		$submission = $this->submission->newInstance($attributes);
-		return $submission->user()->save($user);
+		$submission->image_path = $image_path;
+		$submission->thumbnail_path = $thumbnail_path;
+		return $user->submissions()->save($submission);	
 	}
 
 	public function update(Submission $submission, array $attributes) {

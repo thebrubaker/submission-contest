@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Utilities\ImageUtility;
 use Illuminate\Database\Eloquent\Model;
 
 class Submission extends Model
@@ -14,11 +15,24 @@ class Submission extends Model
     protected $table = 'submissions';
 
     /**
-     * The attributes that have default values on Model creation.
-     *
+     * The attributes that are mass assignable on the Model
      * @var array
      */
-    protected $attributes = ['value' => 1];
+    protected $fillable = array('caption', 'location', 'image');
+
+    /**
+     * Set the submission's image.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function setImageAttribute($image)
+    {
+        $image_path = ImageUtility::create($image);
+        $thumbnail_path = ImageUtility::thumbnail($image);
+        $this->attributes['image_path'] = $image_path;
+        $this->attributes['thumbnail_path'] = $thumbnail_path;
+    }
 
     /**
      * The relationship this model has with the User
@@ -27,7 +41,7 @@ class Submission extends Model
      */
     public function user()
     {
-        $this->belongsTo('App\User');
+        return $this->belongsTo('App\User');
     }
 
     /**

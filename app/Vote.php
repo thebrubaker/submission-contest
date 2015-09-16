@@ -11,7 +11,13 @@ class Vote extends Model
      *
      * @var string
      */
-    protected $table = 'vote';
+    protected $table = 'votes';
+
+    /**
+     * The default attributes of a Vote model
+     * @var array
+     */
+    protected $attributes = ['value' => 1];
 
     /**
      *  Query the users that belong to the vote.
@@ -20,7 +26,7 @@ class Vote extends Model
      */
     public function users()
     {
-        $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User');
     }
 
     /**
@@ -30,7 +36,7 @@ class Vote extends Model
      */
     public function submissions()
     {
-        $this->belongsToMany('App\Submission');
+        return $this->belongsToMany('App\Submission');
     }
 
 }

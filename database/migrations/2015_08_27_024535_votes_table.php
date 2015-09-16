@@ -16,7 +16,7 @@ class VotesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('submission_id')->unsigned();
-            $table->integer('value')->unsigned()->default(0);
+            $table->integer('value')->unsigned()->default(1);
             $table->timestamps();
         });
 

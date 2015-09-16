@@ -39,12 +39,11 @@ Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 // Submission routes...
-Route::get('submissions', 'SubmissionController@getSubmissions');
-Route::get('submissions/create', 'SubmissionController@getCreate');
-Route::post('submissions/create', 'SubmissionController@postCreate');
-Route::get('submissions/{id}', 'SubmissionController@getSubmission');
-Route::get('submissions/{id}/edit', 'SubmissionController@getEdit');
-Route::post('submissions/{id}/edit', 'SubmissionController@postEdit');
+Route::resource('submissions', 'SubmissionController');
+Route::post('submissions/{id}/vote', [
+	'as' => 'submissions.castVote',
+	'uses' => 'SubmissionController@castVote'
+]);
 
 // Other routes...
 Route::get('comments', function() { 

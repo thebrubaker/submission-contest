@@ -2,21 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Submissions\CreateRequest;
+use App\Http\Requests\Submissions\UpdateRequest;
 use App\Repositories\SubmissionRepository;
-
 use App\Submission;
+use App\User;
+use Illuminate\Http\Request;
 
 class SubmissionController extends Controller
 {
 
-    private $submissions;
+    /**
+     * Submission Repository
+     * @var App\Repositories\SubmissionRepository
+     */
+    private $repository;
 
-    function __construct(SubmissionRepository $submissions) {
-        $this->submissions = $submissions;
+    /**
+     * Create Submission Repository instance
+     * @param SubmissionRepository $repository [description]
+     */
+    function __construct(SubmissionRepository $repository) {
+        $this->repository = $repository;
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $submissions = Submission::all()->sortByDesc('created_at');
+        return view('submissions.index', compact('submissions'));
     }
 
     /**
@@ -24,7 +44,7 @@ class SubmissionController extends Controller
      *
      * @return Response
      */
-    public function getCreate()
+    public function create()
     {
         return view('submissions.create');
     }
@@ -32,17 +52,80 @@ class SubmissionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  SubmissionRequest  $request
      * @return Response
      */
-    public function postCreate(SubmissionRequest $request)
+    public function store(CreateRequest $request)
     {
-        //
+        $submission = new Submission($request->all());
+        $submission = auth()->user()->submit($submission);
+        return redirect('submissions');
     }
 
-    public function getSubmissions()
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
     {
-        $submissions = $this->submissions->findAll();
-        return view('submissions.index', compact('submissions'));
+        $submission = Submission::find($id);
+        return view('submissions.show', compact('submission'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $submission = Submission::findOrFail($id);
+        return view('submissions.edit', compact('submission'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id, UpdateRequest $request)
+    {
+        $submission = Submission::findOrFail($id);
+        $submission->caption = $request->get('caption');
+        $submission->location = $request->get('location');
+        $submission->save();
+        return redirect('submissions');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        Submission::destroy($id);
+        return redirect('submissions');
+    }
+
+    public function castVote($id)
+    {
+        $user = auth()->user();
+        $submission = Submission::find($id);
+
+        if($user->canVote($submission)) {
+            $user->castVote($submission);
+            // Success
+            return redirect()->back();
+        }
+        
+        // Failure
+        return redirect()->back();
     }
 }

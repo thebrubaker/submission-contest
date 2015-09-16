@@ -15,8 +15,8 @@ class SubmissionsTable extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('image');
-            $table->string('thumbnail');
+            $table->string('image_path');
+            $table->string('thumbnail_path');
             $table->string('caption')->nullable()->default(NULL);
             $table->string('location')->nullable()->default(NULL);
             $table->integer('vote_cache')->unsigned()->default(0);

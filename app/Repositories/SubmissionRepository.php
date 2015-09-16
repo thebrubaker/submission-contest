@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\User;
 use App\Submission;
+use Intervention\Image\Image;
 
 interface SubmissionRepository {
 
@@ -14,7 +15,7 @@ interface SubmissionRepository {
 	public function findByUnapproved();
 	public function findByDenied();
 	public function findByFriendSubmissions(User $user);
-	public function create(User $user, array $input);
+	public function create(User $user, array $attributes, Image $image);
 	public function update(Submission $submission, array $input);
 	
 }

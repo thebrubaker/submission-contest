@@ -42,7 +42,10 @@ class UserRepositoryContract implements UserRepository {
 	 * @return [type]             [description]
 	 */
 	public function create(array $attributes) {
-		return $this->user->create($attributes);
+		$user = $this->user->newInstance($attributes);
+		$user->password = bcrypt($attributes['password']);
+		$user->save();
+		return $user;
 	}
 
 	/**

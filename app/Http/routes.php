@@ -19,12 +19,13 @@ Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
+// Authentication routes...
+Route::get('facebook/login', 'Auth\AuthController@getFacebookLogin');
+Route::post('facebook/login', 'Auth\AuthController@postFacebookLogin');
+
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
-
-// Facebook route...
-Route::post('auth/facebook', 'Auth\AuthController@postFacebook');
 
 // Admin routes...
 Route::get('admin/submissions', 'AdminController@getSubmissions');

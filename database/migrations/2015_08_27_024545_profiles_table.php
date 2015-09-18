@@ -14,15 +14,16 @@ class ProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
-            $table->string('facebook_id')->nullable()->default(NULL);
-            $table->string('access_token')->nullable()->default(NULL);
+            $table->string('facebook_id');
+            $table->string('access_token');
             $table->string('first_name')->nullable()->default(NULL);
             $table->string('last_name')->nullable()->default(NULL);
-            $table->date('date_of_birth')->nullable()->default(NULL);
-            $table->integer('zip_code')->nullable()->default(NULL);
+            $table->string('age_range')->nullable()->default(NULL);
+            $table->string('gender')->nullable()->default(NULL);
+            $table->string('location')->nullable()->default(NULL);
+            $table->string('hometown')->nullable()->default(NULL);
             $table->string('profile_photo')->nullable()->default(NULL);
-            $table->json('facebook_friends')->nullable()->default(NULL);
-            $table->json('page_likes')->nullable()->default(NULL);
+            $table->string('devices')->nullable()->default(NULL);
             $table->timestamps();
         });
 

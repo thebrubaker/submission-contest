@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Submissions\CreateRequest;
-use App\Http\Requests\Submissions\UpdateRequest;
-use App\Repositories\SubmissionRepository;
+use App\Http\Requests\Submission\CreateRequest;
+use App\Http\Requests\Submission\UpdateRequest;
 use App\Submission;
 
 use App\User;
@@ -14,21 +13,6 @@ use Illuminate\Http\Request;
 
 class SubmissionController extends Controller
 {
-
-    /**
-     * Submission Repository
-     * @var App\Repositories\SubmissionRepository
-     */
-    private $repository;
-
-    /**
-     * Create Submission Repository instance
-     * @param SubmissionRepository $repository [description]
-     */
-    function __construct(SubmissionRepository $repository) {
-        $this->repository = $repository;
-        $this->middleware('auth', ['except' => ['index', 'show']]);
-    }
 
     /**
      * Display a listing of the resource.

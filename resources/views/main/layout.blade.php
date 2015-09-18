@@ -13,11 +13,14 @@
 
 	{{-- Navbar Section --}}
 	@include('partials.nav')
+
+	{{-- Flash Notifications --}}
+	@include('partials.flash')
 	
 	{{-- Main Content --}}
 	@yield('content')
 	
-	{{-- Post-loaded scripts --}}
+	{{-- Scripts --}}
 	@include('partials.scripts')
 
 </body>

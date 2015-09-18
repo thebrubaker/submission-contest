@@ -148,6 +148,7 @@ return [
          * Additional Service Providers...
          */
         Intervention\Image\ImageServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
     ],
 
@@ -197,6 +198,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'Flash'     => Laracasts\Flash\Flash::class,
 
     ],
 

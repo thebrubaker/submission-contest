@@ -18,7 +18,7 @@ class Profile extends Model
      *
      * @var array
      */
-    protected $fillable = ['', '', ''];
+    protected $fillable = ['first_name', 'last_name', 'gender', 'facebook_id', 'devices', 'location', 'hometown', 'age_range', 'access_token', 'profile_photo'];
 
     /**
      * The relationship this model has with the User

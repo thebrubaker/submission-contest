@@ -14,7 +14,7 @@ class ProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
-            $table->string('facebook_id');
+            $table->string('facebook_id')->unique();
             $table->string('access_token');
             $table->string('first_name')->nullable()->default(NULL);
             $table->string('last_name')->nullable()->default(NULL);

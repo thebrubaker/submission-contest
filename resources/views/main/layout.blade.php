@@ -10,7 +10,6 @@
 	<link href="//fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet" type="text/css">
 </head>
 <body>
-
 	{{-- Navbar Section --}}
 	@include('partials.nav')
 
